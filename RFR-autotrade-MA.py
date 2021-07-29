@@ -5,8 +5,6 @@ import datetime
 access = ""
 secret = ""
 
-coin=["RFR"]
-
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
     df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
@@ -48,21 +46,21 @@ print("autotrade start")
 while True:
     try:
         now = datetime.datetime.now()
-        start_time = get_start_time("KRW-coin")
+        start_time = get_start_time("KRW-RFR")
         end_time = start_time + datetime.timedelta(days=1)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-coin", 0.5)
-            ma15 = get_ma15("KRW-coin")
-            current_price = get_current_price("KRW-coin")
+            target_price = get_target_price("KRW-RFR", 0.5)
+            ma15 = get_ma15("KRW-RFR")
+            current_price = get_current_price("KRW-RFR")
             if target_price < current_price and ma15 < current_price:
                 krw = get_balance("KRW")
                 if krw > 5000:
-                    upbit.buy_market_order("KRW-coin", krw*0.9995)
+                    upbit.buy_market_order("KRW-RFR", krw*0.9995)
         else:
-            rfr = get_balance("coin")
+            rfr = get_balance("RFR")
             if rfr > 120:
-                upbit.sell_market_order("KRW-coin", rfr*0.9995)
+                upbit.sell_market_order("KRW-RFR", rfr*0.9995)
         time.sleep(1)
     except Exception as e:
         print(e)
