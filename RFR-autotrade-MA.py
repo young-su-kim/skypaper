@@ -61,7 +61,7 @@ while True:
                     upbit.buy_market_order("KRW-coin", krw*0.9995)
         else:
             rfr = get_balance("coin")
-            if rfr > 0.00008:
+            if rfr > 120:
                 upbit.sell_market_order("KRW-coin", rfr*0.9995)
         time.sleep(1)
     except Exception as e:
